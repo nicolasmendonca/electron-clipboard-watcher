@@ -39,16 +39,19 @@ module.exports = function (opts) {
   let lastText = clipboard.readText()
   let lastImage = clipboard.readImage()
 
+  let checkForTextDiff = opts.textHasChanged || textHasDiff
+  let checkForImageDiff = opts.imageHasChanged || imageHasDiff
+
   const intervalId = setInterval(() => {
     const text = clipboard.readText()
     const image = clipboard.readImage()
 
-    if (opts.onImageChange && imageHasDiff(image, lastImage)) {
+    if (opts.onImageChange && checkForImageDiff(image, lastImage)) {
       lastImage = image
       return opts.onImageChange(image)
     }
 
-    if (opts.onTextChange && textHasDiff(text, lastText)) {
+    if (opts.onTextChange && checkForTextDiff(text, lastText)) {
       lastText = text
       return opts.onTextChange(text)
     }

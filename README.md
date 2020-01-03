@@ -12,8 +12,9 @@ Start polling the clipboard for changes.
 
 Usage:
 
-```
+```js
 const clipboardWatcher = require('electron-clipboard-watcher')
+
 clipboardWatcher({
   // (optional) delay in ms between polls
   watchDelay: 1000,
@@ -22,7 +23,13 @@ clipboardWatcher({
   onImageChange: function (nativeImage) { ... },
 
   // handler for when text data is copied into the clipboard
-  onTextChange: function (text) { ... }
+  onTextChange: function (text) { ... },
+
+  // (optional) Compares text to conditionally trigger `onTextChange`
+  textHasChanged: function (newText, lastText) { ... },
+
+  // (optional) Compares text to conditionally trigger `onImageChange`
+  imageHasChanged: function (newImage, lastImage) { ... }
 })
 ```
 
